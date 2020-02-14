@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 const ContactForm = () => {
   const [data, setData] = useState();
-  const { register, errors, handleSubmit, reset } = useForm({
+  const { register, errors, handleSubmit } = useForm({
     mode: "onBlur"
   });
   const onSubmit = data => {
@@ -15,10 +15,10 @@ const ContactForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="firstName">First Name*</label>
-          <input
+          <input           
             name="firstName"
             placeholder="bill"
-            ref={register({ required: true, maxLength: 3 })}
+            ref={register({ required: true, minLength: 3 })}
           />
           {errors.firstName && (
             <p>Looks like there was an error: {errors.firstName.type}</p>
@@ -38,10 +38,13 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label htmlFor="email" placeholder="bluebill1049@hotmail.com">
+          <label htmlFor="email">
             Email*
           </label>
-          <input name="email" ref={register({ required: true })} />
+          <input name="email"
+          placeholder="bluebill1049@hotmail.com"
+          ref={register({ required: true })} 
+          />
           {errors.email && (
             <p>Looks like there was an error: {errors.email.type}</p>
           )}
@@ -55,7 +58,7 @@ const ContactForm = () => {
             {JSON.stringify(data, null, 2)}
           </pre>
         )}
-        <input type="submit" />
+        <input data-testid = 'submitButtonTest' type="submit" />
       </form>
     </div>
   );
